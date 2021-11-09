@@ -24,13 +24,16 @@ func ExampleScrape() {
 	}
 
 	doc.Find("table").Each(func(t int, tr *goquery.Selection) {
+
 		switch t {
 		case 0:
 		case 1:
 			s := Site{}
 
-			tr.Find("td").Each(func(ix int, td *goquery.Selection) {
-				fmt.Println(ix)
+			tr.Find("tr").Each(func(ix int, td *goquery.Selection) {
+
+				//fmt.Println(strconv.Itoa(ix) + "  " + td.Text())
+
 				switch ix {
 				case 1:
 					s.Agency = td.Text()
@@ -41,8 +44,10 @@ func ExampleScrape() {
 				case 4:
 					s.Datestamp = td.Text()
 				}
+				//fmt.Println(s.Address)
+				//arraySite = append(arraySite, s)
 			})
-
+			//fmt.Println(s.Address)
 			arraySite = append(arraySite, s)
 		}
 
