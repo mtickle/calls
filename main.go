@@ -46,17 +46,28 @@ func OnPage(link string) {
 		arrSite.Latitude = site[1]
 		arrSite.Longitude = site[2]
 
-		var tempLocation = site[4]
-		tempLocation = strings.Replace(tempLocation, "<br /><br />Loc: ", "|", -1)
-		tempLocation = strings.Replace(tempLocation, "<br />Time: ", "|", -1)
-		tempLocation = strings.Replace(tempLocation, "<br />Agency: ", "|", -1)
-		tempLocation = strings.Replace(tempLocation, "<strong>", "", -1)
-		tempLocation = strings.Replace(tempLocation, "</strong>", "", -1)
-		//tempLocation = strings.Replace(tempLocation, "<br /><br />", "|", -1)
-		//tempLocation = strings.Replace(tempLocation, "<br />", "|", -1)
+		var temp_location = site[4]
+		temp_location = strings.Replace(temp_location, "<br /><br />Loc: ", "|", -1)
+		temp_location = strings.Replace(temp_location, "<br />Time: ", "|", -1)
+		temp_location = strings.Replace(temp_location, "<br />Agency: ", "|", -1)
+		temp_location = strings.Replace(temp_location, "<strong>", "", -1)
+		temp_location = strings.Replace(temp_location, "</strong>", "", -1)
+
+		call := strings.Split(temp_location, "|")
+
+		arrSite.Incident = call[0]
+		arrSite.Address = call[1]
+		arrSite.Datestamp = call[2]
+
+		//temp_location = strings.Replace(temp_location, "<br /><br />", "|", -1)
+		//temp_location = strings.Replace(temp_location, "<br />", "|", -1)
 		//arrSite.Address
 
-		fmt.Println(tempLocation)
+		for i, s := range arrSite {
+			fmt.Println(i, s)
+		}
+
+		//fmt.Println(arrSite)
 	}
 
 }
