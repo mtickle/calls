@@ -9,6 +9,8 @@ import (
 )
 
 type Site struct {
+	Latitude  string
+	Longitude string
 	Agency    string
 	Address   string
 	Incident  string
@@ -31,13 +33,30 @@ func OnPage(link string) {
 	var temp_sites = GetStringInBetween(string(content), " var sites = [", "];")
 
 	sites := strings.Split(temp_sites, "],")
+	arrSite := Site{}
+	//arrSite := Site{}
 
 	//--- Loop through the array. This is where the magic happens.
 	for _, s := range sites {
 		var temp_site = ""
 		temp_site = strings.Replace(s, "[", "", -1)
 		site := strings.Split(temp_site, ",")
-		fmt.Println(site[4])
+
+		arrSite.Agency = site[0]
+		arrSite.Latitude = site[1]
+		arrSite.Longitude = site[2]
+
+		var tempLocation = site[4]
+		tempLocation = strings.Replace(tempLocation, "<br /><br />Loc: ", "|", -1)
+		tempLocation = strings.Replace(tempLocation, "<br />Time: ", "|", -1)
+		tempLocation = strings.Replace(tempLocation, "<br />Agency: ", "|", -1)
+		tempLocation = strings.Replace(tempLocation, "<strong>", "", -1)
+		tempLocation = strings.Replace(tempLocation, "</strong>", "", -1)
+		//tempLocation = strings.Replace(tempLocation, "<br /><br />", "|", -1)
+		//tempLocation = strings.Replace(tempLocation, "<br />", "|", -1)
+		//arrSite.Address
+
+		fmt.Println(tempLocation)
 	}
 
 }
