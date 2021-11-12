@@ -83,14 +83,20 @@ func OnPage(link string) {
 		var Location = call[1]
 		var Datestamp = call[2]
 
-		//--- Run your insert.
-		var sql = "CALL add_call ($1, $2, $3, $4, $5, $6);"
-		_, err := db.Exec(sql, Agency, Latitude, Longitude, Incident, Location, Datestamp)
+		timestamp := strings.Split(Datestamp, " ")
+		var CallDate = timestamp[0]
+		var CallTime = timestamp[1]
+
+		fmt.Println(CallDate)
+		fmt.Println(CallTime)
+
+		// //--- Run your insert.
+		var sql = "CALL add_call ($1, $2, $3, $4, $5, $6, $7);"
+		_, err := db.Exec(sql, Agency, Latitude, Longitude, Incident, Location, CallDate, CallTime)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		fmt.Println(Agency)
 	}
 	//-----------------------------------------------------------------------
 
