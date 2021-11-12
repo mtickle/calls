@@ -4,7 +4,7 @@
 
 CREATE OR REPLACE FUNCTION public.get_recent_calls(
 	)
-    RETURNS TABLE(id bigint, agency text, latitude text, longitude text, incident text, location text, reported_date date) 
+    RETURNS TABLE(id bigint, agency text, latitude text, longitude text, incident text, location text, call_date date, call_time time) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE PARALLEL UNSAFE
@@ -20,10 +20,11 @@ begin
         call.longitude, 
         call.incident, 
         call.location, 
-        call.datestamp
+        call.call_date,
+		call.call_time
 	FROM public.call
     order by
-            datestamp DESC;
+            call_date DESC, call_time DESC;
 	end;
 $BODY$;
 
